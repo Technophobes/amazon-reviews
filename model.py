@@ -26,7 +26,7 @@ class Reviewer(Base):
     product_id = Column(Integer, ForeignKey('Product.id'))
 
     def __repr__(self):
-        return "<Reviewer(reviewer_name='%s')>" % (self.reviewer_name)
+        return "<Reviewer(amazon_reviewerID='%s')>" % (self.amazon_reviewerID)
 
 
 class Review(Base):
