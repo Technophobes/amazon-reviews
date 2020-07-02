@@ -76,6 +76,31 @@ def add_review():
 	q2.enqueue(add_review_from_queue, request_dict)
 	return "OK", 200
 
+# Endpoint for deleting a record
+@app.route('/delete/review/<id>', methods=['DELETE'])
+def review_delete(id):
+	session = dbconnect()
+	review = session.query(Review).filter(Review.id == id).one()
+	session.delete(review)
+	session.commit()
+
+	return id
+
+# Endpoint for updating a review
+@app.route("/review/<id>", methods=["PUT"])
+def review_update(id):
+	session = dbconnect()
+	review = session.query(Review).filter(Review.id == id).one()
+
+	review_text = request.json['review_text']
+	summary = request.json['summary']
+
+	review.review_text = review_text
+	review.summary = summary
+
+	session.commit()
+	return id
+
 # This provides the error message on the url
 if __name__ == '__main__':
 
